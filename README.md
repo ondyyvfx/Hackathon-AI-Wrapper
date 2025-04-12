@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Superhero Generator
 
-## Getting Started
+**Superhero Generator** — это веб-приложение, в котором каждый может создать уникального супергероя, отвечая на простые вопросы. На основе введённых данных используется AI (OpenAI API), чтобы сгенерировать не только детальное описание героя, но и его изображение.
 
-First, run the development server:
+> 🎯 Этот проект создан в рамках хакатона, чтобы показать, как можно объединить интерактивность, кастомизацию и нейросети для создания уникального пользовательского опыта.
+
+---
+
+## 🔥 Фичи
+
+- ✅ Генерация супергероя с описанием и изображением
+- ✅ Ввод персонализированных данных: роль, суперспособность, характер, вселенная и т.д.
+- ✅ Использование OpenAI API для генерации текста
+- ✅ Автоскролл, плавная анимация, стилизованные кнопки и формы
+- ✅ Tailwind CSS + Shadcn UI для современного интерфейса
+- ✅ Разработано на **Next.js + TypeScript**
+
+---
+
+## 🧠 Используемые технологии
+
+- **Next.js** — современный React-фреймворк
+- **TypeScript** — строгая типизация для стабильности проекта
+- **Tailwind CSS** — быстрая и кастомизируемая стилизация
+- **Shadcn/UI** — красивый UI-kit на основе Radix
+- **OpenAI API** — генерация описания супергероя
+- **Vercel** (опционально) — хостинг/деплой проекта
+
+---
+
+## 🚀 Запуск проекта локально
 
 ```bash
+# Клонировать репозиторий
+git clone https://github.com/yourusername/superhero-generator.git
+cd superhero-generator
+
+# Установить зависимости
+npm install
+
+# Запустить сервер разработки
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
