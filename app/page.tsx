@@ -29,18 +29,42 @@ export default function Home() {
     gender: string;
   };
 
+  type Hero = {
+    id: string; // уникальный id для удаления и отображения
+    name: string;
+    description: string;
+    imageUrl: string;
+  };
+  
+
   const generatePrompt = (answers: AnswersType) => {
     return `
-      Создай супергероя на основе следующих данных:
-      - Роль: ${answers.role}
-      - Суперспособность: ${answers.power}
-      - Вселенная: ${answers.universe}
-      - Характер: ${answers.personality}
-      - Гендер: ${answers.gender}
-      
-      Опиши его имя, способности, предысторию, костюм и внешний вид иллюстрируя его на изображении четко.
-    `;
+  Ты — креативный писатель комиксов. На основе данных ниже придумай уникального супергероя, связанного с темой скорости. Не используй шаблонные или абстрактные силы.
+  
+  1. 🔥 Тема героя: ${answers.role} (в данном случае — "что-то прикольное со скоростью")
+  2. 🌍 Вселенная: ${answers.universe}
+  3. 🧠 Характер: ${answers.personality}
+  4. ⚧ Гендер: ${answers.gender}
+  
+  🎯 Опиши:
+  - Уникальное имя героя (не повторяй известных персонажей Marvel или DC)
+  - Его суперспособности, связанные именно с темой "скорости"
+  - Предысторию (как он получил свои силы, какие испытания прошёл)
+  - Его костюм и внешний вид
+  - С каким злом он борется
+  
+  Формат ответа:
+  Имя:
+  Способности:
+  Предыстория:
+  Костюм:
+  Внешний вид:
+  Миссия:
+  
+  Ответь на русском языке.
+  `;
   };
+  
   
 
   const generateHero = async () => {
@@ -61,6 +85,22 @@ export default function Home() {
     setImg(data.imageUrl);
     setLoading(false);
   };
+
+   const [collection, setCollection] = useState<Hero[]>([]);
+
+  const saveHeroToCollection = () => {
+    const currentCollection = JSON.parse(localStorage.getItem('heroCollection') || '[]');
+    const newHero = {
+      name: hero,
+      image: img,
+      date: new Date().toISOString(),
+    };
+
+    const updated = [...currentCollection, newHero];
+    localStorage.setItem('heroCollection', JSON.stringify(updated));
+    setCollection(updated); // чтобы обновить отображение сразу
+  };
+  
 
   return (
     <section id='generate'>
@@ -93,6 +133,15 @@ export default function Home() {
 
         {img && <img src={img} alt="Hero" className="w-64 h-64 rounded-xl" />}
         {hero && <pre className="max-w-xl whitespace-pre-wrap text-left">{hero}</pre>}
+
+        {hero && (
+          <button
+            onClick={saveHeroToCollection}
+            className="bg-green-600 px-4 py-2 rounded-xl hover:bg-green-700 transition"
+          >
+            💾 Сохранить героя
+          </button>
+        )}
       </main>
     </section>
   );
