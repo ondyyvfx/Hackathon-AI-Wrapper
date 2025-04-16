@@ -1,21 +1,14 @@
-
 const isProd = process.env.NODE_ENV === 'production';
 
-const nextConfig = {
+module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  
   output: 'export',
-  
   images: {
     unoptimized: true,
   },
-
   basePath: "/Hackathon-AI-Wrapper",
-
   ...(isProd && {
   }),
 };
-
-module.exports = nextConfig;
