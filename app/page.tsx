@@ -11,9 +11,9 @@ export default function Home() {
     gender: '',
   });
 
-  const [hero, setHero] = useState('');
-  const [img, setImg] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [hero, setHero] = useState<string>(''); // Тип строка для героя
+  const [img, setImg] = useState<string>(''); // Тип строка для изображения
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,13 +28,6 @@ export default function Home() {
     gender: string;
   };
 
-  type Hero = {
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-  };
-
   // Генерация промпта с учетом роли (герой или злодей)
   const generatePrompt = (answers: AnswersType) => {
     return `
@@ -45,7 +38,7 @@ export default function Home() {
       3. 🧠 Характер: ${answers.personality}
       4. ⚧ Гендер: ${answers.gender}
       5. 💪 Сила: ${answers.power}
-      
+
       🎯 Опиши:
       - Имя
       - Суперспособности
@@ -82,11 +75,17 @@ export default function Home() {
     setLoading(false);
   };
 
+  type Hero = {
+    name: string;
+    image: string;
+    date: string;
+  };
+
   const [collection, setCollection] = useState<Hero[]>([]);
 
   const saveHeroToCollection = () => {
     const currentCollection = JSON.parse(localStorage.getItem('heroCollection') || '[]');
-    const newHero = {
+    const newHero: Hero = {
       name: hero,
       image: img,
       date: new Date().toISOString(),

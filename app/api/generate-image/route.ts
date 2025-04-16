@@ -5,22 +5,10 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json();
+    const { description } = await req.json();
 
-    if (!prompt) {
-      return NextResponse.json({ error: 'Поле prompt не указано' }, { status: 400 });
-    }
-
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
-      max_tokens: 300,
-    });
-
-    const text = completion.choices[0].message.content?.trim();
-    if (!text) {
-      return NextResponse.json({ error: 'Не удалось сгенерировать описание' }, { status: 500 });
+    if (!description) {
+      return NextResponse.json({ error: 'Поле description не указано' }, { status: 400 });
     }
 
     const translate = await openai.chat.completions.create({
@@ -32,7 +20,7 @@ export async function POST(req: Request) {
         },
         {
           role: 'user',
-          content: `Translate this into a vivid English prompt for a cartoon image:\n\n${text}`,
+          content: `Translate this into a vivid English prompt for a cartoon image:\n\n${description}`,
         },
       ],
       temperature: 0.3,
@@ -55,9 +43,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Не удалось сгенерировать изображение' }, { status: 500 });
     }
 
-    return NextResponse.json({ text, imageUrl });
+    return NextResponse.json({ imageUrl });
   } catch (err: any) {
-    console.error('❌ Ошибка:', err.message || err);
-    return NextResponse.json({ error: 'Ошибка' }, { status: 500 });
+    console.error('❌ Ошибка генерации изображения:', err.message || err);
+    return NextResponse.json({ error: 'Ошибка генерации изображения' }, { status: 500 });
   }
 }
